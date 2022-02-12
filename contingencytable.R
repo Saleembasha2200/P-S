@@ -24,6 +24,7 @@ print(chisquarecal)
 dof <- (length(rowname)-1)*(length(colname)-1)
 chisquaretable <- qchisq((1-los),dof)
 print(chisquaretable)
+
 if (chisquaretable>chisquarecal)
 {
   print("the factors in the contingency table are independent")
