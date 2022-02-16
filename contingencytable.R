@@ -1,29 +1,52 @@
 print("enter level of significance:")
 los <- scan()
-colname <- c('labour','clerks','technicians','executives')
-rowname <- c('type1','type2','type3')
-values <- c(190,243,197,82,44,44,23,78,34,5,12,8)
-table <- matrix(values,byrow=TRUE,nrow=4,dimnames = list(colname,rowname))
-colsum <- c(sum(table[,1]),sum(table[,2]),sum(table[,3]))
+#colname <- c('labour','clerks','technicians','executives')
+print("enter row size:")
+rowsize <- scan()
+rowname <-c()
+print("enter row elements:")
+for (i in 1:rowsize){
+  rowname <- append(rowname,readline())
+}
+print("enter column size:")
+colsize <- scan()
+colname <- c()
+print("enter column elements:")
+for (i in 1:colsize){
+  colname <- append(colname,readline())
+}
+print("enter  elements:")
+values <- scan()
+#rowname <- c('type1','type2','type3')
+#values <- c(190,243,197,82,44,44,23,78,34,5,12,8)
+table <- matrix(values,byrow=TRUE,nrow=rowsize,dimnames = list(rowname,colname))
+colsum <- c()
+for (i in 1:colsize)
+{
+  colsum <- append(colsum,sum(table[,i]))
+}
 table <- rbind(table,colsum)
-rowsum <- c(sum(table[1,]),sum(table[2,]),sum(table[3,]),sum(table[4,]))
+rowsum <- c()
+for (i in 1:rowsize){
+  rowsum <- append(rowsum,sum(table[i,]))
+}
 table <- cbind(table,rowsum)
-table[5,4]=sum(rowsum)
-sample_size <- table[5,4]
+table[rowsize+1,colsize+1]=sum(rowsum)
+sample_size <- table[rowsize+1,colsize+1]
 View(table)
 data1<- c()
-for (i in 1:4){
-  for (j in 1:3){
+for (i in 1:rowsize){
+  for (j in 1:colsize){
     data1 <- append(data1,(rowsum[i]*colsum[j])/sample_size)
   }
 }
-expectedfrequenciestable <- matrix(data1,byrow=TRUE,nrow=4,dimnames = list(colname,rowname))
+expectedfrequenciestable <- matrix(data1,byrow=TRUE,nrow=rowsize,dimnames = list(rowname,colname))
 View(expectedfrequenciestable)
 chisquarecal <- sum((values-data1)**2/data1)
-print(chisquarecal)
+cat("chisquare calculated value:",chisquarecal,"\n")
 dof <- (length(rowname)-1)*(length(colname)-1)
 chisquaretable <- qchisq((1-los),dof)
-print(chisquaretable)
+cat("chisquare table value:",chisquaretable,"\n")
 
 if (chisquaretable>chisquarecal)
 {
