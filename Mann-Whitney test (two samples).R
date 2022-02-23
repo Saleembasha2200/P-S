@@ -12,3 +12,4 @@ if (t$p.value>los){
   print("reject Ho") 
 }
 #
+#
