@@ -18,7 +18,7 @@ print("enter second observations:")
 y <- scan()
 print("enter level of significance:")
 los <- scan()
-t <- wilcox.test(x,y,paired=TRUE,mu=muew,alternative="two.sided")
+t <- wilcox.test(x,y,paired=TRUE,alternative="two.sided")
 if (t$p.value>los){
   print("accept Ho")
 }else{
